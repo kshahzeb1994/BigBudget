@@ -1,32 +1,41 @@
 var budgetController = (function() {
-    var x = 23;
 
-    var add = function(a) {
-        return x + a;
-    }
-
-    return {
-        publicTest: function(b) {
-            return add(b);
-        }
-    }
 })();
 
 var UIController = (function() {
 
+    return {
+        getInput: function() {
+
+            return {
+                type: document.querySelector('.add__type').value,
+                description: document.querySelector('.add__description').value,
+                value: document. querySelector('.add__value').value
+            }
+
+
+
+
+        }
+    }
+
 })();
 
 var controller = (function(budgetCtrl, UICtrl) {
-    // document.querySelector('.add__btn').addEventListener('click', function() {
-    //     console.log("button was clicked.")
-    // });
 
-    var z = budgetCtrl.publicTest(5);
-
-    return {
-        anotherPublic: function() {
-            console.log(z);
-        }
+    var ctrlAddItem = function() {
+        var input = UICtrl.getInput();
+        console.log(input);
     }
+
+    document.querySelector('.add__btn').addEventListener('click', ctrlAddItem);
+
+    document.addEventListener('keypress', function (e) {
+
+        if(e.which === 13 || e.which === 13){
+            ctrlAddItem();
+        }
+
+    });
 
 })(budgetController, UIController);
