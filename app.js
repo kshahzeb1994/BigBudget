@@ -17,12 +17,13 @@ var UIController = (function() {
                 type: document.querySelector(DOMstrings.inputType).value,
                 description: document.querySelector(DOMstrings.inputDescription).value,
                 value: document. querySelector(DOMstrings.inputValue).value
-            }
+            };
+        },
 
-
-
-
+        getDOMstrings: function() {
+            return DOMstrings;
         }
+
     }
 
 })();
@@ -32,7 +33,10 @@ var controller = (function(budgetCtrl, UICtrl) {
     var ctrlAddItem = function() {
         var input = UICtrl.getInput();
         console.log(input);
+
     }
+
+    var DOM = UICtrl.getDOMstrings;
 
     document.querySelector('.add__btn').addEventListener('click', ctrlAddItem);
 
