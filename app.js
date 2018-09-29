@@ -1,5 +1,28 @@
 var budgetController = (function() {
 
+    var Expense = function(id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    };
+
+    var Income = function(id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    };
+
+    var  data = {
+        allItems: {
+            exp: [],
+            inc: []
+        },
+        totals: {
+            exp: 0,
+            inc: 0
+        }
+    };
+
 })();
 
 var UIController = (function() {
@@ -7,7 +30,8 @@ var UIController = (function() {
     var DOMstrings = {
         inputType: '.add__type',
         inputDescription: '.add__description',
-        inputValue: ".add__value"
+        inputValue: ".add__value",
+        inputBtn: ".add__btn"
     }
 
     return {
@@ -30,22 +54,34 @@ var UIController = (function() {
 
 var controller = (function(budgetCtrl, UICtrl) {
 
+
+    var setupEventListeners = function() {
+        var DOM = UICtrl.getDOMstrings();
+
+        document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
+        document.addEventListener('keypress', function (e) {
+
+            if(e.which === 13 || e.which === 13){
+                ctrlAddItem();
+            }
+
+        });
+    };
+
     var ctrlAddItem = function() {
         var input = UICtrl.getInput();
         console.log(input);
 
     }
 
-    var DOM = UICtrl.getDOMstrings;
+    var DOM = UICtrl.getDOMstrings();
 
-    document.querySelector('.add__btn').addEventListener('click', ctrlAddItem);
-
-    document.addEventListener('keypress', function (e) {
-
-        if(e.which === 13 || e.which === 13){
-            ctrlAddItem();
+    return {
+        init: function() {
+            setupEventListeners();
         }
-
-    });
+    }
 
 })(budgetController, UIController);
+
+controller.init();
